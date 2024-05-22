@@ -5,6 +5,8 @@ import 'package:flutter_application_1/weathermodelclass.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
+var appidkey = "";
+
 class WeatherService extends GetConnect {
   Future<WeatherModelClass> getWeather({lat, lon, cityname}) async {
     if (lat == null && lon == null) {
@@ -13,7 +15,7 @@ class WeatherService extends GetConnect {
       lon = locationdata.lon;
     }
     final weatherUrl = Uri.parse(
-        'https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&exclude=hourly&units=metric&appid=4fd24363bf0166758b2f904888943d90');
+        'https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&exclude=hourly&units=metric&appid=$appidkey');
     try {
       final response = await http.get(weatherUrl);
       if (response.statusCode == 200) {
@@ -36,7 +38,7 @@ class WeatherService extends GetConnect {
 
   Future<LocationModelClass> getlocation(cityname) async {
     final locationurl =
-        "http://api.openweathermap.org/geo/1.0/direct?q=$cityname&limit=1&appid=4fd24363bf0166758b2f904888943d90";
+        "http://api.openweathermap.org/geo/1.0/direct?q=$cityname&limit=1&appid=$appidkey";
     final response = await get(locationurl);
     LocationModelClass locationdata = LocationModelClass();
     if (response.statusCode == 200) {
@@ -65,7 +67,7 @@ class WeatherService extends GetConnect {
     var lon = locationdata.lon;
     for (var date in datellist) {
       final forecasturl =
-          "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=$lat&lon=$lon&units=metric&dt=${date.toString().split(".")[0]}&appid=4fd24363bf0166758b2f904888943d90";
+          "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=$lat&lon=$lon&units=metric&dt=${date.toString().split(".")[0]}&appid=$appidkey";
       var response = await get(forecasturl);
       if (response.statusCode == 200) {
         fivedaysforecastweatherdata

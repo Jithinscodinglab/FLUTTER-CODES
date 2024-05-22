@@ -76,9 +76,9 @@ class _HomePageState extends State<HomePage> {
       content: StatefulBuilder(builder: (context, setstate) {
         var size = context.mediaQuerySize;
         return SizedBox(
-          height: size.height / 1.6,
           width: size.width - 60,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 "Add City",
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               SizedBox(
-                height: size.height / 2.3,
+                height: size.height / 3.4,
                 child: ListView.builder(
                   itemCount: sortedcitylist!.length,
                   itemBuilder: (context, index) {
@@ -177,6 +177,7 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
         child: Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.refresh),
         onPressed: () {
